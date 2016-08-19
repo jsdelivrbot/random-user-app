@@ -23,11 +23,17 @@ class RandomUserContainer extends Component {
 
   renderUserImage(user) {
     return (
-      <View >
+      <View
+        style={{
+          flex: 0.4,
+          justifyContent: 'center',
+          alignItems: 'center'
+        }}
+      >
         <Image
         style={{
-            width: 120,
-            height: 120,
+            width: 100,
+            height: 100,
             backgroundColor: 'transparent',
             borderRadius: 60,
             borderWidth: 2,
@@ -42,14 +48,40 @@ class RandomUserContainer extends Component {
 
   renderUserInfo(user) {
     return (
-      <View >
+      <View
+        style={{
+          flex: 0.6,
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'flex-start'
+        }}
+      >
         <Text
           style={{
-            fontSize: 30,
+            fontSize: 20,
             fontWeight: 'bold',
+            color: 'white'
           }}
         >
           {this.toTitleCase(user.name.first + ' ' + user.name.last)}
+        </Text>
+
+        <Text
+          style={{
+            fontSize: 10,
+            color: 'white'
+          }}
+        >
+          { user.email }
+        </Text>
+
+        <Text
+          style={{
+            fontSize: 10,
+            color: 'white'
+          }}
+        >
+          { user.phone }
         </Text>
       </View>
     );
@@ -62,10 +94,18 @@ class RandomUserContainer extends Component {
 
   render() {
     return (
-      <View style={{flex: 1, flexDirection: 'row', padding: 20, backgroundColor: 'powderblue'}}>
+      <View style={{flex: 1, flexDirection: 'column', backgroundColor: 'powderblue'}}>
         {(this.props.loading) && <Text>Loading user data...</Text>}
-        {(this.props.user) && this.renderUserImage(this.props.user)}
-        {(this.props.user) && this.renderUserInfo.bind(this)(this.props.user)}
+
+        <View style={{flex: 0.2, flexDirection: 'row', backgroundColor: 'steelblue'}}>
+          {(this.props.user) && this.renderUserImage(this.props.user)}
+          {(this.props.user) && this.renderUserInfo.bind(this)(this.props.user)}
+        </View>
+
+        <View style={{flex: 0.8}}>
+
+        </View>
+
       </View>
     );
   }
