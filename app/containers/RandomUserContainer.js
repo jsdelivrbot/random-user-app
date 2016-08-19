@@ -21,31 +21,51 @@ class RandomUserContainer extends Component {
     this.props.getRandomUser();
   }
 
-  renderUserInfo(user) {
+  renderUserImage(user) {
     return (
-      <View>
+      <View >
         <Image
         style={{
             width: 120,
             height: 120,
             backgroundColor: 'transparent',
-            marginLeft: 30,
-            borderRadius: 20
+            borderRadius: 60,
+            borderWidth: 2,
+            borderColor: 'white'
           }}
-          resizeMode={Image.resizeMode.contain}
+          resizeMode={Image.resizeMode.cover}
           source={{uri: user.picture.large}}
         />
-        <Text>First Name: { user.name.first }</Text>
-        <Text>Last Name: { user.name.last }</Text>
       </View>
     );
   }
+
+  renderUserInfo(user) {
+    return (
+      <View >
+        <Text
+          style={{
+            fontSize: 30,
+            fontWeight: 'bold',
+          }}
+        >
+          {this.toTitleCase(user.name.first + ' ' + user.name.last)}
+        </Text>
+      </View>
+    );
+  }
+
+  toTitleCase(str)
+  {
+    return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+  }
+
   render() {
     return (
-      <View>
-        <Text>Random User Container</Text>
+      <View style={{flex: 1, flexDirection: 'row', padding: 20, backgroundColor: 'powderblue'}}>
         {(this.props.loading) && <Text>Loading user data...</Text>}
-        {(this.props.user) && this.renderUserInfo(this.props.user)}
+        {(this.props.user) && this.renderUserImage(this.props.user)}
+        {(this.props.user) && this.renderUserInfo.bind(this)(this.props.user)}
       </View>
     );
   }
